@@ -9,8 +9,8 @@ export function sortStrings(arr, param = 'asc') {
 
     switch (param) {
         case 'asc':
-            return sorted.sort((str, str2) => str.localeCompare(str2, 'en-US', { caseFirst: 'upper' }));
+            return sorted.sort((str, str2) => str.localeCompare(str2, 'kf', { sensitivity: 'case', caseFirst: 'upper' }));
         case 'desc':
-            return sorted.sort((str, str2) => str2.localeCompare(str, { caseFirst: 'upper' }));
+            return sorted.sort((str, str2) => str2.localeCompare(str, 'kf', { sensitivity: 'case', caseFirst: 'false' }));
     }
 }
