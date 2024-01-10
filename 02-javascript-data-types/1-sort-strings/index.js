@@ -6,11 +6,27 @@
  */
 export function sortStrings(arr, param = 'asc') {
     const sorted = [...arr];
+    const locales = ['ru', 'en'];
+    const collatorAsc = new Intl.Collator(locales, { caseFirst: 'upper' });
+    const collatorDesc = new Intl.Collator(locales, { caseFirst: 'lower' });
 
     switch (param) {
         case 'asc':
-            return sorted.sort((str, str2) => str.localeCompare(str2, 'kf', { sensitivity: 'case', caseFirst: 'upper' }));
+            return sorted.sort((str, str2) => collatorAsc.compare(str, str2));
         case 'desc':
-            return sorted.sort((str, str2) => str2.localeCompare(str, 'kf', { sensitivity: 'case', caseFirst: 'false' }));
+            return sorted.sort((str, str2) => collatorDesc.compare(str2, str));
     }
 }
+
+/* Второй вариант решения
+export function sortStrings(arr, param = 'asc') {
+    const sorted = [...arr];
+
+    switch (param) {
+        case 'asc':
+            return sorted.sort((str, str2) => str.localeCompare(str2, ['ru', 'en'], { caseFirst: 'upper' }));
+        case 'desc':
+            return sorted.sort((str, str2) => str2.localeCompare(str, ['ru', 'en'], { caseFirst: 'lower' }));
+    }
+}
+*/
